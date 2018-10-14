@@ -12,19 +12,19 @@
 
 
 #### 文件说明
-dictionary.zip  如果没有你的项目中没有引入自动加载，可以直接使用 dictionary.zip 解压放在你指定目录
-src/
-    docfile/        创建文件存放目录,可以通过配置自定义
-    file/           HTML 模板文件与样式文件,可以通过配置自定义
-    log/            日志文件夹,可以通过配置自定义
-    test/           示例图片目录
-    .gitignore      GitHub 忽略文件
-    Config.php      配置文件
-    Ddic.php        生成数据字典核心类
-    Derror.php      错误处理类文件
-    File.php        生成 HTML/CSV 数据文件
-    PdoSql.php      数据库操作文件
-    dome.php        测试文件
+dictionary.zip  如果没有你的项目中没有引入自动加载，可以直接使用 dictionary.zip 解压放在你指定目录     
+src/       
+	docfile/		创建文件存放目录,可以通过配置自定义     
+	file/			HTML 模板文件与样式文件,可以通过配置自定义
+	log/			日志文件夹,可以通过配置自定义
+	test/			示例图片目录
+	.gitignore		GitHub 忽略文件
+	Config.php		配置文件
+	Ddic.php		生成数据字典核心类
+	Derror.php		错误处理类文件
+	File.php		生成 HTML/CSV 数据文件
+	PdoSql.php		数据库操作文件
+	dome.php		测试文件   
 
 
 #### 调用
