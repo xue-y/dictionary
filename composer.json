@@ -1,0 +1,28 @@
+{
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    },
+    "name": "xue-y/dictionary",
+    "description": "PHP generates MySQL database dictionary",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "xue-y",
+            "email": "1922527784@qq.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ddic\\": "src"
+        }
+    }
+}
