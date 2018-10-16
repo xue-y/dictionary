@@ -17,7 +17,7 @@ $Ddic=new Ddic($config);
 /*$Ddic->limit=2;
 $Ddic->isZip=true;*/
 /*$Ddic->fileExt='csv';*/
-/*$Ddic->isDown=true;*/
+$Ddic->isDown=true;
 $Ddic->fileName='测试中文';
 
 $Ddic->docFile();

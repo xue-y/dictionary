@@ -454,7 +454,9 @@ class File {
         /*$f_size=filesize($filename);
         header("Accept-Ranges:bytes");
         header("Accept-Length:".$f_size);*/
-        header("Content-Disposition:attachment;filename=".basename($filename));
+        $f_arr=explode("/",$filename);
+        $new_file_name=end($f_arr);
+        header("Content-Disposition:attachment;filename=".$new_file_name);
         header("Content-Transfer-Encoding:binary");
         readfile($filename,true);
     }
