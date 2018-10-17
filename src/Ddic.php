@@ -7,27 +7,19 @@
  * 数据表生成数据字典工具
  */
 namespace Ddic;
-use Ddic\PdoSql;
-use Ddic\File;
 
-class Ddic extends  PdoSql
+class Ddic
 {
     // 配置文件
-    private $config ;
+    private $config=array();
+    private $pdo_conn;
 
     //初始化配置 连接数据库
     public function __construct($config = array())
     {
-        //set_time_limit(30) // 如果数据量过大可以设置一下脚本执行时间
+        set_time_limit(0); // 如果数据量过大可以设置一下脚本执行时间
         // 基本设置
-        $this->config = array_merge(include "Config.php",$config);
-        header("Content-Type:text/html;charset={$this->config['webChar']}"); // 页面文档字符集
-        date_default_timezone_set($this->config['dateTimezone']);
-
-        // 初始化连接数据库
-        $pdo_conn=self::getInstance($this->config);
-
-        $pdo_conn->conn();
+        $this->config = array_merge(include "Config.php",$config,$this->config);
     }
 
     // 设置获取 配置信息
@@ -67,8 +59,8 @@ class Ddic extends  PdoSql
     /* 文档 head */
     public function docHead()
     {
-        $charset=$this->dbCharset();
-        $table_c=count($this->tableAll());
+        $charset=$this->pdo_conn->dbCharset();
+        $table_c=count($this->pdo_conn->tableAll());
         $table_c=$table_c>0?$table_c:"暂无数据表";
 
         $head['dbname']=$this->dbName;
@@ -81,22 +73,24 @@ class Ddic extends  PdoSql
     /* 文档body */
     public function docBody()
     {
-        $tit=$this->tableAll();
+        $tit=$this->pdo_conn->tableAll();
         if(empty($tit))
-            return false;
+        {
+            exit("暂无数据表");
+        }
 
         $t_f=array(); // 表字段信息
         $t_h=array();// 表标题
         foreach($tit as $k=>$v)
         {
-            $head["index"]=$k+1;
+            $head["index"]=$k+1;  // 表序号
             $head["Name"]=$v["Name"];
             $head["Collation"]=$v["Collation"];
             $head["Engine"]=$v["Engine"];
             $head["Comment"]=$v["Comment"];
             array_push($t_h,$head);  // 表头数据---取出多余数据
 
-            $table_field[$v["Name"]]=$this->fieldCom($v["Name"]);
+            $table_field[$v["Name"]]=$this->pdo_conn->fieldCom($v["Name"]);
             array_push($t_f,$table_field);
         }
         $table_all['tit']=$t_h;
@@ -116,21 +110,58 @@ class Ddic extends  PdoSql
     /* 显示、生成文件、压缩、下载*/
     public function docFile()
     {
+        $this->initConf();
         $file_class=new File($this->config);
         $data=$this->docData();
 
         $data['fieldTitKey']=explode(',',$this->fieldTitKey); // 数据表字段title
         $data['fieldTitVal']=explode(',',$this->fieldTitVal); // 数据表字段信息
 
+        $this->fileType();// 文件存储方式
+
+
         // 直接输出在当前页面 一次性输出所有数据，如果数据过多请选择创建数据文件
-        if($this->config['isCreatFile'] != true)
+        if($this->config['fileType'] =='echo')
         {
             echo $file_class->docHtml($data);
+
+        }else if($this->config['fileType'] =='down')
+        {
+            //下载文件
+            $file_class->downFile($data);
+
         }else
         {
-           // 写入文件 或 下载文件
-           $file_class->writeFile($data);
+            // 生成文件保存到本地----- 如果用户没有配置参数
+            $file_class->writeFile($data);
+            //输出文件名与日志信息
+            $file_class->outFile();
         }
+    }
+
+    // 文件存储方式
+    private function fileType()
+    {
+        if(empty($this->config['fileType']) || !in_array($this->config['fileType'],explode("|",$this->config['type'])))
+        {
+            $this->config['fileType']=null;
+        }else
+        {
+            // 字符统一小写
+            $this->config['fileType']=strtolower($this->config['fileType']);
+        }
+
+    }
+
+    // 初始化配置
+    private function initConf()
+    {
+        header("Content-Type:text/html;charset={$this->config['webChar']}"); // 页面文档字符集
+        date_default_timezone_set($this->config['dateTimezone']);
+
+        // 初始化连接数据库
+        $this->pdo_conn=PdoSql::getInstance($this->config);
+        $this->pdo_conn->conn();
     }
 
 }

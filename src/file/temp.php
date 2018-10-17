@@ -9,7 +9,7 @@
             padding:0;
             margin:0;
             background:#fff; font-size:14px;
-            font-family:12px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif; line-height:150%; margin:5px 0 0 0; padding-bottom:20px;color:#404040; line-height:30px;
+            font-family:12px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif; line-height:150%; padding-bottom:20px;color:#404040; line-height:30px;
         }
         div{margin:0px; padding: 0px;}
         a,a:visited {
@@ -31,7 +31,10 @@
         th {
             padding:5px;
         }
-
+        table th:nth-of-type(1){ width:10%;}
+        table th:nth-of-type(2){ width:30%;}
+        table th:nth-of-type(3){ width:15%;}
+        table th:nth-of-type(4){ width:15%;}
         td {
             padding:3px 5px 3px 10px;
             vertical-align:top;
@@ -40,8 +43,9 @@
         .menu {
             background:#eee;
             height:38px; line-height:38px;
-            text-align:right;
-            padding:0 10px;
+            width:100%;
+            padding:0 30px; position: fixed;top:0px; z-index: 10; border-bottom: 1px solid #DAE0E4;
+            box-shadow: 0 1px 2px 0 rgba(158,172,182,.2);
         }
 
         .menu h3 {
@@ -67,13 +71,10 @@
         }
 
         .content {
-            padding:10px 30px;
+            padding:10px 30px; margin-top: 40px;
         }
 
         /*模块标题*/
-        h3{height:33px; line-height:33px; font-size:14px; text-align:right;
-            padding:0 12px; font-weight:100;
-        }
         textarea{border:1px solid #ccc; width:938px; padding:10px; height:100px;}
         .table_tit th{border:none !important;background:#d6eef0; font-size: 15px;}
 
@@ -109,10 +110,10 @@
         <?php foreach($data['body']['tit'] as $tk=>$tv) { ?> <!--表信息-->
           <table width="100%" border="1" cellpadding="0" cellspacing="0">
             <tr class="table_tit">
-                <th style="width:10%">表：<?php echo  $tk+1; ?></th>
-                <th style="width:20%"><?php echo  $tv["Name"]; ?></th>
-                <th style="width:20%"><?php echo  $tv["Collation"]; ?></th>
-                <th style="width:10%"><?php echo  $tv["Engine"]; ?></th>
+                <th>表：<?php echo  $tk+1; ?></th>
+                <th><?php echo  $tv["Name"]; ?></th>
+                <th><?php echo  $tv["Collation"]; ?></th>
+                <th><?php echo  $tv["Engine"]; ?></th>
                 <th><?php echo  $tv["Comment"]; ?></th>
             </tr>
           </table>
@@ -126,7 +127,7 @@
             <?php foreach($data['body']['body'][$tk][$tv["Name"]] as $bk=>$bv) {?>  <!--表字段信息-->
                 <tr>
                     <?php foreach($data['fieldTitVal'] as $fk=>$fv) { ?> <!--表字段信息说明-->
-                        <th><?php echo $bv[$fv]; ?></th>
+                        <td><?php echo $bv[$fv]; ?></td>
                     <?php }; ?>
                 </tr>
             <?php }; ?>

@@ -8,14 +8,16 @@ use ZipArchive;
 class File {
 
     private $config=array(
-        'tempFile'=>"./file/temp.php", // html 模板文件
-        'logFile'=>'./log/error.txt',  // 错误警告文件日志 log 文件夹要有读写创建的权限
-        'logTimeFormat'   =>'Y:m:d H:i:s',
-        'logTipsInfo'    =>'执行时有警告错误请查看日志信息',
-        'excleBr'  => PHP_EOL,     //excle 文件换回符
+        'tempFile         '=>     "./file/temp.php", // html 模板文件
+        'logFile'           =>      './log/error.txt',  // 错误警告文件日志 log 文件夹要有读写创建的权限
+        'logTimeFormat'    =>      'Y:m:d H:i:s',
+        'logTipsInfo'      =>      '执行时有警告错误请查看日志信息',
+        'excleBr'           =>      PHP_EOL,     //excle 文件换回符
+        "defileExt"         =>     'csv',         // 文件后缀
     );
-    private  $logError=FALSE; // log 错误提示信息
-    private  $tmpFileName; // 写入文件后返回的文件名
+    private  $logError=FALSE;       // log 错误提示信息
+    private  $tmpFileName;          // 写入文件后返回的文件名
+    private  $isSubsection=false;  // 是否分卷
 
     // 初始化配置文件-- 这里的配置信息要数组形式调用
     public function __construct($config=array())
@@ -32,38 +34,47 @@ class File {
         {
             Derror::ErrorCode(3,dirname($this->config['logFile']));
         }
-    }
 
-    public function  writeFile($data)
-    {
         $this->isExt(); // 判断文件格式是否合法
         $this->isMinMax();// 判断数据条数
         $this->fileName();// 调用文件名称
-
-        // 文件名定义
+        // 文件名定义-
         $this->tmpFileName=$this->dataFileName();
+    }
 
+    /** 写入文件
+     * @parem $data 要写入文件的数据
+     * @return viod
+     * */
+    public function  writeFile($data)
+    {
         if($this->config['fileExt']=='html')
         {
             // 写入html
-            $this->writeHtml($data);
+           $this->writeHtml($data);
         }else
         {
             // 写入csv
             $this->writeCsv($data);
         }
-
         // 判断是否执行压缩
         $this->docZip($this->tmpFileName);
 
-        // 判断是否执行下载
+        // 输出文件名与日志信息  调用下载函数 downFile 是 输出不出来页面直接下载了
+        // $this->outFile();
+    }
+
+    /* 下载文件*/
+    public function downFile($data)
+    {
+        $this->writeFile($data);
         $this->docDown($this->tmpFileName);
     }
 
     /** 输出文件执行后的结果
      * 输出文件名、如果存在日志警告信息输出警告
      * */
-    private function outFile()
+    public function outFile()
     {
         echo '生成文件路径：<br/>';
         // 文件名（gbk-->locationChar）与网页 (utf8--->webChar) 编码一致
@@ -98,7 +109,7 @@ class File {
             $offset=0;
             $page=0;
             $file_name_arr=array();
-            while($new_c>=0)
+            while($new_c>0)
             {
                 $new_data['body']['tit']=array_slice($data['body']['tit'],$offset,$this->config['limit'],true);
 
@@ -117,11 +128,11 @@ class File {
         }else{
             // -----------------------------------------------------------------------------------单个文件处理
             $this->tmpFileName.=".".$this->config["fileExt"];
-            file_put_contents($this->tmpFileName,$this->docHtml($data));
 
+             file_put_contents($this->tmpFileName,$this->docHtml($data));
             if(!file_exists($this->tmpFileName)) // 文件创建失败
             {
-                Derror::ErrorCode(2);
+                Derror::ErrorCode(5);
             }
         }//------------------------------------------------------------------文件创建完成
     }
@@ -133,10 +144,8 @@ class File {
     private function writeCsv($data)
     {
         $c=$data['head']["table_c"];// 数据总条数
-
         if($this->config['limit']<$c)
         {
-
             $new_data=$data;
             unset($new_data["body"]["tit"]);
 
@@ -145,7 +154,7 @@ class File {
             $offset=0;
             $page=0;
             $file_name_arr=array();
-            while($new_c>=0)
+            while($new_c>0)
             {
                 $new_data['body']['tit']=array_slice($data['body']['tit'],$offset,$this->config['limit'],true);
 
@@ -174,6 +183,7 @@ class File {
     public function docHtml($data)
     {
         ob_start(); // --------------------控制输出量
+        $this->isTemp(); // 判断模板文件是否存在
         require $this->config['tempFile'];  // 载入模板文件
         $c=ob_get_contents();
         ob_clean();
@@ -198,30 +208,30 @@ class File {
 
     /**执行下载文件
      * @parem $filename 需要下载的文件名 str or arr
+     * @return void
      */
     private function docDown($filename)
     {
-        if($this->config['isDown']!=true)
+        // 判断文件是不是数组如果是数组，就是没有压缩的文件， 执行压缩---- 多个文件
+        // 如果不是数组 ---- 单个文件执行下载
+        if(is_array($filename))
         {
-            // 输出文件名与日志信息
-            $this->outFile();
-        }else
-        {
-            // 判断文件是不是数组如果是数组，就是没有压缩的文件， 执行压缩---- 多个文件
-            // 如果不是数组 ---- 单个文件执行下载
-            if(is_array($filename))
-            {
-                $filename=$this->zipFile($filename);
-            }
+            $filename=$this->zipFile($filename);
+        }
 
-            $this->downFile($filename);
+        if($this->config['typeDownHold']==true)  // 判断下载完成是否保留本地文件
+        {
+            $this->exctDownLocalFile($filename);
+        }else
+        {   // 下载完成删除本地文件
+            $this->exctDownFile($filename);
         }
     }
 
 
     /*压缩一个或多个文件,如果存在同名压缩文件夹自动覆盖
     * @parem $filename str 单个文件 arr 多个文件
-     * @return str or arr  zip_file_name
+     * @return str  zip_file_name
      * */
     private function zipFile($filename)
     {
@@ -229,22 +239,25 @@ class File {
         $zipname=$this->config['fileDir'].$this->charCode(date('Y-m-d-His')."_dict.zip");
 
         $zip=new ZipArchive();
-        if($zip->open($zipname,ZipArchive::OVERWRITE)===TRUE)
+        if(!$zip->open($zipname,ZipArchive::OVERWRITE)===TRUE)
         {
-            /* 如果$filename 是 arr 时 自身循环一次, 添加压缩是又要for 循环一次，共循环 2 次*/
-           // $new_file_name=$this->zipFileRename($filename);
-            if(is_array($filename))
-            {
-                foreach($filename as $k=>$fv)
-                {
-                    //不包含路径文件夹 如果存在同名文件将会覆盖
-                   $zip->addFile($fv,$this->zipFileRename($fv));
-                }
-            }else
-            {
-               $zip->addFile($filename,$this->zipFileRename($filename));
-            }
+            Derror::ErrorCode(6,$zipname);
         }
+
+        /* 如果$filename 是 arr 时 自身循环一次, 添加压缩是又要for 循环一次，共循环 2 次*/
+        // $new_file_name=$this->zipFileRename($filename);
+        if(is_array($filename))
+        {
+            foreach($filename as $k=>$fv)
+            {
+                //不包含路径文件夹 如果存在同名文件将会覆盖
+               $zip->addFile($fv,$this->zipFileRename($fv));
+            }
+        }else
+        {
+           $zip->addFile($filename,$this->zipFileRename($filename));
+        }
+
         $zip->close();
 
         //如果压缩 文件创建失败
@@ -257,6 +270,8 @@ class File {
 
         return $zipname;
     }
+
+
 
     /** 删除压缩后的原文件
      * @parem $filename str 单个文件 arr 多个文件
@@ -323,6 +338,15 @@ class File {
     {
         $this->config['limit']=max($this->config['minLimit'],$this->config['limit']);
         $this->config['limit']=min($this->config['maxLimit'],$this->config['limit']);
+    }
+
+    // 判断 html 模板文件是否 存在
+    private function isTemp()
+    {
+        if(!file_exists($this->config['tempFile']))
+        {
+            Derror::ErrorCode(7,$this->config['tempFile']);
+        }
     }
 
     // 文件名称
@@ -442,11 +466,11 @@ class File {
         }
     }
 
-    /** 下载  文件
+    /** 本地已创建的文件下载
      * @parem $filename 下载的文件名
      * @return 直接输出文件
      */
-    private function downFile($filename)
+    private function exctDownLocalFile($filename)
     {
         $file_ext=pathinfo($filename,PATHINFO_EXTENSION);
         header("Content-type:application/".$file_ext);
@@ -459,6 +483,37 @@ class File {
         header("Content-Disposition:attachment;filename=".$new_file_name);
         header("Content-Transfer-Encoding:binary");
         readfile($filename,true);
+    }
+    // 判断用户是否下载完成或取消下载 删除本地文件
+    private function exctDownFile($filename)
+    {
+        $fp=fopen($filename,"r");
+        $file_ext=pathinfo($filename,PATHINFO_EXTENSION);
+        header("Content-type:application/".$file_ext);
+
+        $f_size=filesize($filename);
+        header("Accept-Ranges:bytes");
+        header("Accept-Length:".$f_size);
+
+        $f_arr=explode("/",$filename);
+        $new_file_name=end($f_arr);
+        header("Content-Disposition:attachment;filename=".$new_file_name);
+        header("Content-Transfer-Encoding:binary");
+
+        $buffer=1024; //设置一次读取的字节数，每读取一次，就输出数据（即返回给浏览器）
+        $file_count=0; //读取的总字节数
+        //向浏览器返回数据
+        while(!feof($fp) && $file_count<$f_size){
+            $file_con=fread($fp,$buffer);
+            $file_count+=$buffer;
+            echo $file_con;
+        }
+        fclose($fp);
+        //下载完成后删除压缩包，临时文件夹
+        if($file_count >= $f_size)
+        {
+            $this->unFile($filename);
+        }
     }
 
 }

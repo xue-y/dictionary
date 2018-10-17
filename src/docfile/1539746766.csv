@@ -1,0 +1,93 @@
+﻿back数据库字典
+back,"DEFAULT CHARACTER SET utf8",数据表个数：,9
+
+1,self_cus_base,utf8_unicode_ci,InnoDB,客户登录表
+字段,类型,Null/默认,Key,注释
+id,"smallint(5) unsigned",NO,PRI,客户id
+phone,char(11),NO,,手机号
+pass,char(32),NO,,密码
+is_del,char(1),NO,,"是否删除,删除为1"
+
+2,self_cus_detailed,utf8_unicode_ci,InnoDB,用户资料详细表
+字段,类型,Null/默认,Key,注释
+id,"smallint(5) unsigned",NO,PRI,"客户id PRIMARY KEY"
+cid,"smallint(5) unsigned zerofill",NO,,客户所属咨询师id
+tid,"smallint(5) unsigned",NO,,客户的推荐人id
+wx,varchar(40),NO,,客户微信号
+n,varchar(20),NO,,客户名称
+is_wx,char(1),NO,,客户微信是否验证，验证后为1
+money,varchar(10),NO,,佣金
+t,datetime,NO,,注册时间
+age,"tinyint(3) unsigned",NO,,客户年龄
+sex,varchar(3),NO,,客户性别
+openid,varchar(50),NO,,用户openid
+headimg,varchar(100),NO,,用户头像
+descr,varchar(250),NO,,用户备注
+
+3,self_cus_downline,utf8_unicode_ci,InnoDB,推荐下线表
+字段,类型,Null/默认,Key,注释
+id,"smallint(5) unsigned",NO,PRI,推荐id
+tid,"smallint(5) unsigned",NO,,推荐人id
+phone,char(11),NO,,下线手机号
+wx,varchar(40),NO,,下线微信号
+n,varchar(20),NO,,下线姓名
+age,"tinyint(3) unsigned",NO,,推荐下线的年龄
+sex,varchar(3),NO,,推荐下线的性别
+t,datetime,NO,,推荐时间
+remarks,varchar(250),NO,,备注说明
+cid,"smallint(5) unsigned zerofill",NO,,推荐人的咨询师id
+state,varchar(10),NO,,审核状态
+s_t,datetime,NO,,审核时间
+descr,varchar(250),NO,,审核说明
+
+4,self_cus_info,utf8_unicode_ci,InnoDB,客户消息通知表
+字段,类型,Null/默认,Key,注释
+id,"smallint(5) unsigned",NO,PRI,消息通知id
+cid,"smallint(5) unsigned",NO,,客户id
+easy,varchar(50),NO,,消息简介
+con,varchar(253),NO,,消息内容
+is_read,char(1),NO,,"用户是否读取,默认1"
+
+5,self_cus_money,utf8_unicode_ci,InnoDB,佣金记录表
+字段,类型,Null/默认,Key,注释
+id,"smallint(5) unsigned",NO,,客户id
+cid,"smallint(5) unsigned zerofill",NO,,操作员id
+num,varchar(10),NO,,操作金额
+jine,varchar(250),NO,,每次修改后的金额
+t,datetime,NO,PRI,操作时间
+info,varchar(254),NO,,操作说明
+
+6,self_limit,utf8_unicode_ci,MyISAM,权限表
+字段,类型,Null/默认,Key,注释
+id,"tinyint(4) unsigned",NO,PRI,权限ID
+n,varchar(30),NO,,权限名称
+execs,varchar(100),NO,,权限的类与方法
+pid,"tinyint(4) unsigned",NO,,权限分组
+
+7,self_role,utf8_unicode_ci,MyISAM,角色表
+字段,类型,Null/默认,Key,注释
+id,"tinyint(4) unsigned",NO,PRI,角色ID
+n,varchar(30),NO,,角色名称
+descr,varchar(255),NO,,角色描述
+limit_id,varchar(255),NO,,权限ID
+
+8,self_user,utf8_unicode_ci,InnoDB,用户表
+字段,类型,Null/默认,Key,注释
+id,"smallint(5) unsigned zerofill",NO,PRI,用户编号
+u_name,varchar(20),NO,,用户名称
+u_pass,varchar(32),NO,,用户密码
+bumen,varchar(30),NO,,人员所在部门
+role_id,"tinyint(2) unsigned",NO,,用户角色ID
+times,varchar(30),NO,,登录时间
+found,"smallint(5) unsigned zerofill",NO,,"用户创建人,部位管理人员"
+mail,varchar(50),NO,,用于忘记密码时用户找回密码
+is_jihuo,varchar(30),NO,,邮箱是否激活
+
+9,self_user_fj,utf8_unicode_ci,InnoDB,管理员信息附加表
+字段,类型,Null/默认,Key,注释
+id,"smallint(5) unsigned zerofill",NO,PRI,管理id
+phone,varchar(11),NO,,手机号
+wx,varchar(40),NO,,微信号
+info,varchar(200),NO,,个人说明
+meg,tinyint(4),NO,,消息通知个数
+

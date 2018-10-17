@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>back数据库字典</title>
+    <style>
+        body {
+            color:#4f6b72;
+            padding:0;
+            margin:0;
+            background:#fff; font-size:14px;
+            font-family:12px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif; line-height:150%; padding-bottom:20px;color:#404040; line-height:30px;
+        }
+        div{margin:0px; padding: 0px;}
+        a,a:visited {
+            text-decoration:none;
+            color:#4f6b72;
+            border-bottom:1px dotted #CCC;
+        }
+
+        a:hover {
+            text-decoration:underline;
+        }
+
+        table {
+            border:1px solid #C1DAD7;
+            border-collapse:collapse;
+        }
+        .table_con{margin-bottom: 40px;}
+
+        th {
+            padding:5px;
+        }
+        table th:nth-of-type(1){ width:10%;}
+        table th:nth-of-type(2){ width:30%;}
+        table th:nth-of-type(3){ width:15%;}
+        table th:nth-of-type(4){ width:15%;}
+        td {
+            padding:3px 5px 3px 10px;
+            vertical-align:top;
+        }
+
+        .menu {
+            background:#eee;
+            height:38px; line-height:38px;
+            width:100%;
+            padding:0 30px; position: fixed;top:0px; z-index: 10; border-bottom: 1px solid #DAE0E4;
+            box-shadow: 0 1px 2px 0 rgba(158,172,182,.2);
+        }
+
+        .menu h3 {
+            float:left;
+            font-size:16px;
+            margin:0;
+            padding:0;
+        }
+
+        .menu a,
+        .menu a:visited {
+            font-size:12px;
+            text-decoration:none;
+            color:#666;
+            padding:5px 10px;
+            height:20px;
+            background:#FFF;
+            border:1px solid #FFF;
+        }
+
+        .menu a:hover {
+            background:transparent;
+        }
+
+        .content {
+            padding:10px 30px; margin-top: 40px;
+        }
+
+        /*模块标题*/
+        textarea{border:1px solid #ccc; width:938px; padding:10px; height:100px;}
+        .table_tit th{border:none !important;background:#d6eef0; font-size: 15px;}
+
+        td{text-align: center;}
+        h1{ height:40px; line-height:40px; background:#4f81bd; color:#FFF; padding-left:20px; font-size:16px; margin-top:60px; }
+        ul{ border:1px solid #FFCC00; padding:5px 10px;}
+        ul strong{ color:#FF0000}
+        #tbox{width:58px; float:right; position:fixed; right:50px; bottom:15px;
+            _position:absolute;
+            _bottom:auto;
+            _top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
+            _margin-bottom:15px;
+        }/*解决IE6下不兼容 position:fixed 的问题*/
+        #gotop{ width:58px; height:56px; display:block;}
+        #gotop{ background-position:0 -118px;}
+        #gotop:hover{ background-position:0 -59px;}
+        .a{ display:block; height:30px; line-height:30px; background:#2d96e9; text-decoration: none; text-align: center; color:#FFFFFF; border-bottom:2px solid #fff}
+        .a:hover{ background:#4f81bd}
+        .b{ background:#4f81bd  }
+        .blank{height:10px; line-height:10px; clear:both; visibility:hidden;}
+        .share { float:left}
+        .share a{ text-decoration:none; border:none}
+        .share  dl{ float:left; line-height:22px; padding-right:10px;}
+        .share div{ float:left; padding-top:11px;}
+    </style>
+    <!--<link href="./file/style.css" rel="stylesheet" type="text/css" media="all" />-->
+</head>
+<body>
+    <div class="menu">
+    <h3>back 数据库; &nbsp;  字符：DEFAULT CHARACTER SET utf8 ; &nbsp;  数据表个数：9</h3>
+    </div>
+    <div class="content">
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：1</th>
+                <th>self_cus_base</th>
+                <th>utf8_unicode_ci</th>
+                <th>InnoDB</th>
+                <th>客户登录表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>客户id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>phone</td>
+                     <!--表字段信息说明-->
+                        <td>char(11)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>手机号</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>pass</td>
+                     <!--表字段信息说明-->
+                        <td>char(32)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>密码</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>is_del</td>
+                     <!--表字段信息说明-->
+                        <td>char(1)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>是否删除,删除为1</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：2</th>
+                <th>self_cus_detailed</th>
+                <th>utf8_unicode_ci</th>
+                <th>InnoDB</th>
+                <th>用户资料详细表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>客户id PRIMARY KEY</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>cid</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned zerofill</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户所属咨询师id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>tid</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户的推荐人id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>wx</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(40)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户微信号</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>n</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(20)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户名称</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>is_wx</td>
+                     <!--表字段信息说明-->
+                        <td>char(1)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户微信是否验证，验证后为1</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>money</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(10)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>佣金</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>t</td>
+                     <!--表字段信息说明-->
+                        <td>datetime</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>注册时间</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>age</td>
+                     <!--表字段信息说明-->
+                        <td>tinyint(3) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户年龄</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>sex</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(3)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户性别</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>openid</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(50)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户openid</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>headimg</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(100)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户头像</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>descr</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(250)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户备注</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：3</th>
+                <th>self_cus_downline</th>
+                <th>utf8_unicode_ci</th>
+                <th>InnoDB</th>
+                <th>推荐下线表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>推荐id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>tid</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>推荐人id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>phone</td>
+                     <!--表字段信息说明-->
+                        <td>char(11)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>下线手机号</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>wx</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(40)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>下线微信号</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>n</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(20)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>下线姓名</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>age</td>
+                     <!--表字段信息说明-->
+                        <td>tinyint(3) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>推荐下线的年龄</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>sex</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(3)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>推荐下线的性别</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>t</td>
+                     <!--表字段信息说明-->
+                        <td>datetime</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>推荐时间</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>remarks</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(250)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>备注说明</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>cid</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned zerofill</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>推荐人的咨询师id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>state</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(10)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>审核状态</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>s_t</td>
+                     <!--表字段信息说明-->
+                        <td>datetime</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>审核时间</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>descr</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(250)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>审核说明</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：4</th>
+                <th>self_cus_info</th>
+                <th>utf8_unicode_ci</th>
+                <th>InnoDB</th>
+                <th>客户消息通知表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>消息通知id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>cid</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>easy</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(50)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>消息简介</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>con</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(253)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>消息内容</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>is_read</td>
+                     <!--表字段信息说明-->
+                        <td>char(1)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户是否读取,默认1</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：5</th>
+                <th>self_cus_money</th>
+                <th>utf8_unicode_ci</th>
+                <th>InnoDB</th>
+                <th>佣金记录表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>客户id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>cid</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned zerofill</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>操作员id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>num</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(10)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>操作金额</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>jine</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(250)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>每次修改后的金额</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>t</td>
+                     <!--表字段信息说明-->
+                        <td>datetime</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>操作时间</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>info</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(254)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>操作说明</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：6</th>
+                <th>self_limit</th>
+                <th>utf8_unicode_ci</th>
+                <th>MyISAM</th>
+                <th>权限表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>tinyint(4) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>权限ID</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>n</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(30)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>权限名称</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>execs</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(100)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>权限的类与方法</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>pid</td>
+                     <!--表字段信息说明-->
+                        <td>tinyint(4) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>权限分组</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：7</th>
+                <th>self_role</th>
+                <th>utf8_unicode_ci</th>
+                <th>MyISAM</th>
+                <th>角色表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>tinyint(4) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>角色ID</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>n</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(30)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>角色名称</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>descr</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(255)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>角色描述</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>limit_id</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(255)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>权限ID</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：8</th>
+                <th>self_user</th>
+                <th>utf8_unicode_ci</th>
+                <th>InnoDB</th>
+                <th>用户表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned zerofill</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>用户编号</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>u_name</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(20)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户名称</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>u_pass</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(32)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户密码</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>bumen</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(30)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>人员所在部门</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>role_id</td>
+                     <!--表字段信息说明-->
+                        <td>tinyint(2) unsigned</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户角色ID</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>times</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(30)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>登录时间</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>found</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned zerofill</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用户创建人,部位管理人员</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>mail</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(50)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>用于忘记密码时用户找回密码</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>is_jihuo</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(30)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>邮箱是否激活</td>
+                                    </tr>
+                    </table>
+         <!--表信息-->
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+            <tr class="table_tit">
+                <th>表：9</th>
+                <th>self_user_fj</th>
+                <th>utf8_unicode_ci</th>
+                <th>InnoDB</th>
+                <th>管理员信息附加表</th>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
+            <tr style="background:#F1F1F1;">
+                 <!--表字段说明-->
+                <th>字段</th>
+                 <!--表字段说明-->
+                <th>类型</th>
+                 <!--表字段说明-->
+                <th>Null/默认</th>
+                 <!--表字段说明-->
+                <th>Key</th>
+                 <!--表字段说明-->
+                <th>注释</th>
+                            </tr>
+
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>id</td>
+                     <!--表字段信息说明-->
+                        <td>smallint(5) unsigned zerofill</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td>PRI</td>
+                     <!--表字段信息说明-->
+                        <td>管理id</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>phone</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(11)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>手机号</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>wx</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(40)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>微信号</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>info</td>
+                     <!--表字段信息说明-->
+                        <td>varchar(200)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>个人说明</td>
+                                    </tr>
+              <!--表字段信息-->
+                <tr>
+                     <!--表字段信息说明-->
+                        <td>meg</td>
+                     <!--表字段信息说明-->
+                        <td>tinyint(4)</td>
+                     <!--表字段信息说明-->
+                        <td>NO</td>
+                     <!--表字段信息说明-->
+                        <td></td>
+                     <!--表字段信息说明-->
+                        <td>消息通知个数</td>
+                                    </tr>
+                    </table>
+            </div>
+
+</body>
+</html>

@@ -11,13 +11,14 @@ namespace Ddic;
 require "../vendor/autoload.php";
 
 // 实例化前传参数 --- 数组形式； 实例化后传参 --- 对象形式
-$config['fileExt']='csv';
-$Ddic=new Ddic($config);
-/*$Ddic->isCreatFile=false;*/  // 直接输出到页面
-/*$Ddic->limit=2;
-$Ddic->isZip=true;*/
-/*$Ddic->fileExt='csv';*/
-$Ddic->isDown=true;
-$Ddic->fileName='测试中文';
 
+$Ddic=new Ddic();
+/*$Ddic->fileType='down';*/ // 所有数据一次直接输出到页面
+$Ddic->limit=3;
+$Ddic->isZip=true;
+
+$Ddic->fileExt='html';
+$Ddic->fileName='测试中文';
+$Ddic->dbName='back';
+/*$Ddic->typeDownHold=true;*/
 $Ddic->docFile();

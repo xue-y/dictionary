@@ -28,6 +28,12 @@ final class  Derror{
             case 5:
                 $error="创建 csv 文件失败";
                 break;
+            case 6:
+                $error=$errorinfo."创建失败";
+                break;
+            case 7:
+                $error=$errorinfo." html 模板文件不存在或文件名为中文名";
+                break;
             default:
                 $error="未知错误";
         }
