@@ -25,7 +25,10 @@ table {
 th {
     padding:5px;
 }
-
+table th:nth-of-type(1){ width:10%;}
+table th:nth-of-type(2){ width:30%;}
+table th:nth-of-type(3){ width:15%;}
+table th:nth-of-type(4){ width:15%;}
 td {
     padding:3px 5px 3px 10px;
     vertical-align:top;
@@ -34,8 +37,9 @@ td {
 .menu {
     background:#eee;
     height:38px; line-height:38px;
-    text-align:right;
-    padding:0 10px;
+    width:100%;
+    padding:0 30px; position: fixed;top:0px; z-index: 10; border-bottom: 1px solid #DAE0E4;
+    box-shadow: 0 1px 2px 0 rgba(158,172,182,.2);
 }
 
 .menu h3 {
@@ -61,13 +65,10 @@ td {
 }
 
 .content {
-    padding:10px 30px;
+    padding:10px 30px; margin-top: 40px;
 }
 
 /*模块标题*/
-h3{height:33px; line-height:33px; font-size:14px; text-align:right;
-    padding:0 12px; font-weight:100;
-}
 textarea{border:1px solid #ccc; width:938px; padding:10px; height:100px;}
 .table_tit th{border:none !important;background:#d6eef0; font-size: 15px;}
 
