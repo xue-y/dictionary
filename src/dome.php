@@ -17,7 +17,7 @@ $Ddic=new Ddic();
 $Ddic->limit=3;
 $Ddic->isZip=true;
 
-$Ddic->fileExt='html';
+/*$Ddic->fileExt='html';*/
 $Ddic->fileName='测试中文';
 $Ddic->dbName='back';
 /*$Ddic->typeDownHold=true;*/

@@ -464,6 +464,7 @@ class File {
         {
             Derror::ErrorCode(5);
         }
+        ob_clean();// 清空缓冲区
     }
 
     /** 本地已创建的文件下载
