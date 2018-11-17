@@ -34,6 +34,15 @@ final class  Derror{
             case 7:
                 $error=$errorinfo." html 模板文件不存在或文件名为中文名";
                 break;
+            case 8:
+                $error=$errorinfo.'文件转码失败,无法压缩';
+                break;
+            case 9:
+                $error=$errorinfo.'此函数不可用，请开启相关扩展';
+                break;
+            case 10:
+                $error=$errorinfo.'压缩文件添加失败';
+                break;
             default:
                 $error="未知错误";
         }

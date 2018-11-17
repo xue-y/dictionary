@@ -14,11 +14,11 @@ require "../vendor/autoload.php";
 
 $Ddic=new Ddic();
 /*$Ddic->fileType='down';*/ // 所有数据一次直接输出到页面
-$Ddic->limit=3;
-$Ddic->isZip=true;
+/*$Ddic->limit=1;*/
+/*$Ddic->isZip=true;*/
 
 /*$Ddic->fileExt='html';*/
-$Ddic->fileName='测试中文';
-$Ddic->dbName='back';
-/*$Ddic->typeDownHold=true;*/
+/*$Ddic->fileName='中文';*/
+$Ddic->dbName='test';
+/*$Ddic->typeDownOld=true;*/
 $Ddic->docFile();

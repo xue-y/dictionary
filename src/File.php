@@ -16,8 +16,7 @@ class File {
         "defileExt"         =>     'csv',         // 文件后缀
     );
     private  $logError=FALSE;       // log 错误提示信息
-    private  $tmpFileName;          // 写入文件后返回的文件名
-    private  $isSubsection=false;  // 是否分卷
+    private  $tmpFileName;          // 创建文件后返回的文件名--输出到页面
 
     // 初始化配置文件-- 这里的配置信息要数组形式调用
     public function __construct($config=array())
@@ -33,6 +32,11 @@ class File {
         if(!$this->mkdirFile(dirname($this->config['logFile'])))
         {
             Derror::ErrorCode(3,dirname($this->config['logFile']));
+        }
+
+        if(!function_exists('mb_detect_encoding'))
+        {
+            Derror::ErrorCode(9,'mb_detect_encoding');
         }
 
         $this->isExt(); // 判断文件格式是否合法
@@ -78,7 +82,7 @@ class File {
     {
         echo '生成文件路径：<br/>';
         // 文件名（gbk-->locationChar）与网页 (utf8--->webChar) 编码一致
-        $this->tmpFileName=$this->fileNameCode($this->tmpFileName);
+        $this->tmpFileName=$this->fileNameCode($this->config['locationChar'],$this->config['webChar'],$this->tmpFileName);
 
         // 输出
         var_dump($this->tmpFileName);
@@ -186,7 +190,8 @@ class File {
         $this->isTemp(); // 判断模板文件是否存在
         require $this->config['tempFile'];  // 载入模板文件
         $c=ob_get_contents();
-        ob_clean();
+       // ob_clean();
+        ob_end_clean();
         return $c;
     }
 
@@ -219,7 +224,7 @@ class File {
             $filename=$this->zipFile($filename);
         }
 
-        if($this->config['typeDownHold']==true)  // 判断下载完成是否保留本地文件
+        if($this->config['typeDownOld']==true)  // 判断下载完成是否保留本地文件
         {
             $this->exctDownLocalFile($filename);
         }else
@@ -236,26 +241,39 @@ class File {
     private function zipFile($filename)
     {
         //压缩文件名如果是中文需要转码
-        $zipname=$this->config['fileDir'].$this->charCode(date('Y-m-d-His')."_dict.zip");
+        $zipname=$this->dataFileName();
+        $zipname.='.zip';
+
+        // 判断文件是否存在，存在删除,php 6,7 压缩文件 使用 overwrite 错误，这里需要单独判断
+        if(is_file($zipname))
+        {
+            $this->unFile($zipname);
+        }
 
         $zip=new ZipArchive();
-        if(!$zip->open($zipname,ZipArchive::OVERWRITE)===TRUE)
+        if($zip->open($zipname,ZipArchive::CREATE)!=TRUE)
         {
             Derror::ErrorCode(6,$zipname);
         }
 
         /* 如果$filename 是 arr 时 自身循环一次, 添加压缩是又要for 循环一次，共循环 2 次*/
         // $new_file_name=$this->zipFileRename($filename);
+        $filename=$this->zipFileNameCode($filename);
+
         if(is_array($filename))
         {
             foreach($filename as $k=>$fv)
             {
                 //不包含路径文件夹 如果存在同名文件将会覆盖
-               $zip->addFile($fv,$this->zipFileRename($fv));
+              $bool=$zip->addFile($fv,$this->zipFileRename($fv));
+              if(!$bool)
+                Derror::ErrorCode('10',$fv);
             }
         }else
         {
-           $zip->addFile($filename,$this->zipFileRename($filename));
+            $bool=$zip->addFile($filename,$this->zipFileRename($filename));
+            if(!$bool)
+                Derror::ErrorCode('10',$filename);
         }
 
         $zip->close();
@@ -311,11 +329,12 @@ class File {
         error_log($info,3,$this->config["logFile"]);
     }
 
-    /* 文件名处理
+    /* *文件名处理utf8 转 gbk
+    * 输入的文件名（php 文件编码）转为本地编码（gbk 中文）
     */
     private function dataFileName()
     {
-        return $this->config['fileDir'].$this->charCode($this->config["fileName"]);
+        return $this->config['fileDir'].$this->fileNameCode($this->config['webChar'],$this->config['locationChar'],$this->config["fileName"]);
     }
 
     // 判断文件格式
@@ -354,38 +373,35 @@ class File {
     {
         if(empty($this->config['fileName']))
         {
-            $this->config['fileName']=time();
+            $this->config['fileName']=date($this->config['deFileNameType']);
         }
     }
 
-    // 文件名字符转码 这里简单处理，只对于中文字符 gbk utf8 ,其他编码未测试
-    private function charCode($str)
-    {
-        if(strlen($str)!=mb_strlen($str,$this->config['webChar']))
-        {
-            $str=iconv($this->config['webChar'],$this->config['locationChar'],$str);
-        }
-        return $str;
-    }
 
-    /**文件名转码，与页面一致 gbk 转 utf8
+    /**只应用于 单独文件名，不带路径，文件名转码
      * @parem $filename 文件名
      * @parem $prefix  添加统计文件前缀
      * @return filename str or arr
      * */
-    private function fileNameCode($filename,$prefix='')
+    private function fileNameCode($in_charset, $out_charset, $filename)
     {
         if(!is_array($filename))
         {
-            if(strlen($filename)!=mb_strlen($filename,$this->config['webChar']))
+            $encode=mb_detect_encoding($filename, "ASCII,GB2312,GBK,UTF-8,BIG5");
+            //EUC-CN  中文
+            if($encode!='ASCII')
+           // if(strlen($filename)!=mb_strlen($filename,$this->config['webChar']))
             {
-                $filename=iconv($this->config['locationChar'],$this->config['webChar'],$filename);
+                $filename=@iconv($in_charset,$out_charset,$filename);
             }
-            return $prefix.$filename;
+            if(empty($filename))
+                $filename=date($this->config['deFileNameType']);
+
+            return $filename;
         }
         foreach ($filename as $v)
         {
-            $new_fn[]=$this->fileNameCode($v,$prefix);
+            $new_fn[]=$this->fileNameCode($in_charset, $out_charset, $v);
         }
          return $new_fn;
     }
@@ -467,7 +483,7 @@ class File {
         ob_clean();// 清空缓冲区
     }
 
-    /** 本地已创建的文件下载
+    /** 下载文件后 本地保存一份
      * @parem $filename 下载的文件名
      * @return 直接输出文件
      */
@@ -476,15 +492,18 @@ class File {
         $file_ext=pathinfo($filename,PATHINFO_EXTENSION);
         header("Content-type:application/".$file_ext);
         // 此处可以省略
-        /*$f_size=filesize($filename);
-        header("Accept-Ranges:bytes");
+        $f_size=filesize($filename);
+      /*  header("Accept-Ranges:bytes");
         header("Accept-Length:".$f_size);*/
         $f_arr=explode("/",$filename);
         $new_file_name=end($f_arr);
         header("Content-Disposition:attachment;filename=".$new_file_name);
         header("Content-Transfer-Encoding:binary");
-        readfile($filename,true);
+        header("Cache-Control:no-cache,no-store,max-age=0,must-revalidate");
+        header("Pragma:no-cache");
+        readfile($filename);
     }
+
     // 判断用户是否下载完成或取消下载 删除本地文件
     private function exctDownFile($filename)
     {
@@ -493,6 +512,7 @@ class File {
         header("Content-type:application/".$file_ext);
 
         $f_size=filesize($filename);
+
         header("Accept-Ranges:bytes");
         header("Accept-Length:".$f_size);
 
@@ -517,5 +537,33 @@ class File {
         }
     }
 
-}
+    /** php 7 压缩文件 中文文件名转 gbk
+     * */
+    private function zipFileNameCode($filename)
+    {
+       /* $str_code=$this->config['locationChar'];
+        $str_code= strtok($str_code,"//");*/
 
+        if(!is_array($filename))
+        {
+            $encode=mb_detect_encoding($filename, "ASCII,GB2312,GBK,UTF-8,BIG5");
+            // EUC-CN
+            if($encode!="ASCII")
+            {
+                $new_filename=@iconv($encode,$this->config['locationChar'],$filename);
+                if(empty($new_filename))
+                {
+                    Derror::ErrorCode(8,$filename);
+                }
+                $filename=$new_filename;
+            }
+            return $filename;
+        }
+
+        foreach ($filename as $f_n)
+        {
+            $new_file_name[]=$this->zipFileNameCode($f_n);
+        }
+        return $new_file_name;
+    }
+}

@@ -1,0 +1,22 @@
+﻿test数据库字典
+test,"DEFAULT CHARACTER SET latin1",数据表个数：,3
+
+1,astrict,utf8_unicode_ci,MyISAM,权限表
+字段,类型,Null/默认,Key,注释
+id,tinyint(4),NO,,
+module,varchar(20),NO,,模块名称
+controller,varchar(20),NO,,控制器名称
+pid,tinyint(4),NO,,
+
+2,auser,utf8_unicode_ci,MyISAM,管理员用户表
+字段,类型,Null/默认,Key,注释
+id,"tinyint(3) unsigned",NO,PRI,管理员用户id
+
+3,role,utf8_unicode_ci,MyISAM,角色
+字段,类型,Null/默认,Key,注释
+id,"tinyint(3) unsigned",NO,PRI,
+name,varchar(30),NO,,角色名称
+describe,varchar(100),NO,,角色描述
+level,tinyint(4),NO,,角色级别
+astrict,varchar(255),NO,,权限id集合
+

@@ -7,7 +7,7 @@
     },
     "name": "xue-y/dictionary",
     "description": "PHP generates MySQL database dictionary",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "type": "library",
     "license": "Apache-2.0",
     "authors": [
