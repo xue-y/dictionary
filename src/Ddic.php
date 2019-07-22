@@ -85,7 +85,8 @@ class Ddic
         $t_h=array();// 表标题
         foreach($tit as $k=>$v)
         {
-            $head["index"]=$k+1;  // 表序号
+            $table_index=$k+1;
+            $head["index"]='表: '.$table_index;  // 表序号
             $head["Name"]=$v["Name"];
             $head["Collation"]=$v["Collation"];
             $head["Engine"]=$v["Engine"];

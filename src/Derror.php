@@ -48,6 +48,9 @@ final class  Derror{
             case 10:
                 $error=$errorinfo.'压缩文件添加失败';
                 break;
+            case 11:
+                $error=$errorinfo;
+                break;
             default:
                 $error="未知错误";
         }

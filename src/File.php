@@ -18,6 +18,8 @@ class File {
     );
     private  $logError=FALSE;       // log 错误提示信息
     private  $tmpFileName;          // 创建文件后返回的文件名--输出到页面
+    private  $gbkFileName=false;   // 高版本单独处理中文文件名
+    private  $gbkoldFileName;      // 存放用户设置的原中文文件名称
 
     //TODO 初始化配置文件-- 这里的配置信息要数组形式调用
     public function __construct($config=array())
@@ -43,7 +45,15 @@ class File {
         $this->isExt(); // 判断文件格式是否合法
         $this->isMinMax();// 判断数据条数
         $this->fileName();// 调用文件名称
-        // 文件名定义-
+
+        // 判断php 版本号 --- 判断是不是中文名
+        if(version_compare(PHP_VERSION,'5.0', '>=') && (strlen($this->config['fileName'])!=mb_strlen($this->config['fileName']))){
+            $this->gbkFileName=true;
+            $this->gbkoldFileName=$this->fileNameCode($this->config['webChar'],$this->config['locationChar'],$this->config["fileName"]);;
+            $this->config['fileName']=date($this->config['deFileNameType']);;
+        }
+
+        // 文件名定义
         $this->tmpFileName=$this->dataFileName();
     }
 
@@ -193,9 +203,10 @@ class File {
     /**
      * docHtml
      * @todo 获取 html 格式的数据
+     * @param array $data 静态模板数据
      * @return string
      */
-    public function docHtml()
+    public function docHtml($data)
     {
         ob_start(); // --------------------控制输出量
         $this->isTemp(); // 判断模板文件是否存在
@@ -215,7 +226,7 @@ class File {
     private function docZip($filename)
     {
         // 判断是否压缩  --- 属性赋值 不需要返回值
-        if($this->config['isZip']==TRUE)
+        if($this->config['isZip']==true)
         {
             $this->tmpFileName=$this->zipFile($filename);
         }else
@@ -274,10 +285,6 @@ class File {
             Derror::ErrorCode(6,$this->fileNameCode($this->config['locationChar'],$this->config['webChar'],$zipname));
         }
 
-        /* 如果$filename 是 arr 时 自身循环一次, 添加压缩是又要for 循环一次，共循环 2 次*/
-        // $new_file_name=$this->zipFileRename($filename);
-        // $filename=$this->char_code_web_local($filename);
-
         if(is_array($filename))
         {
             $filename=array_filter($filename);// 过滤空数组，可以省略
@@ -291,6 +298,15 @@ class File {
                   $this->unFile($filename);
                   Derror::ErrorCode('10',$this->fileNameCode($this->config['locationChar'],$this->config['webChar'],$fv));
               }
+                // 文件名单独处理
+                if($this->gbkFileName==true)
+                {
+                    $is_rename=$zip->renameName($this->zipFileRename($fv),$this->gbkoldFileName.$k. '.' .$this->config['fileExt']);
+                    if(!$is_rename){
+                        $this->log('文件名系统不支持，返回默认文件名'.$this->config['deFileNameType'].'格式');
+                        $this->logError=true; // 记录一下log 日志中存在错误信息
+                    }
+                }
             }
         }else
         {
@@ -300,6 +316,15 @@ class File {
                 // 删除源文件
                 $this->unFile($filename);
                 Derror::ErrorCode('10',$this->fileNameCode($this->config['locationChar'],$this->config['webChar'],$filename));
+            }
+            // 文件名单独处理
+            if($this->gbkFileName==true)
+            {
+                $is_rename = $zip->renameName($this->zipFileRename($filename), $this->gbkoldFileName . '.' . $this->config['fileExt']);
+                if (!$is_rename) {
+                    $this->log('文件名系统不支持，返回默认文件名' . $this->config['deFileNameType'] . '格式');
+                    $this->logError = true; // 记录一下log 日志中存在错误信息
+                }
             }
 
         }
@@ -315,6 +340,17 @@ class File {
             Derror::ErrorCode(4);
         }
 
+        // 高版本 中文名单独处理
+        if($this->gbkFileName==true)
+        {
+            if(!rename($zipname,$this->config['fileDir'].$this->gbkoldFileName.'.zip'))
+            {
+                $this->log('文件名系统不支持，返回默认文件名: '.$zipname);
+                $this->logError=true; // 记录一下log 日志中存在错误信息
+            }else{
+                return $this->config['fileDir'].$this->gbkoldFileName.'.zip';
+            }
+        }
         return $zipname;
     }
 

@@ -110,7 +110,7 @@
         <?php foreach($data['body']['tit'] as $tk=>$tv) { ?> <!--表信息-->
           <table width="100%" border="1" cellpadding="0" cellspacing="0">
             <tr class="table_tit">
-                <th>表：<?php echo  $tk+1; ?></th>
+                <th><?php echo  $tv['index']; ?></th>
                 <th><?php echo  $tv["Name"]; ?></th>
                 <th><?php echo  $tv["Collation"]; ?></th>
                 <th><?php echo  $tv["Engine"]; ?></th>

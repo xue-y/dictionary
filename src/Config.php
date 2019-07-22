@@ -13,13 +13,13 @@ return array(
     "minLimit" =>           1,              // 如果分卷最少表个数限制
     "maxLimit" =>           500,            // 最大表个数
     "fileDir"  =>           "./docfile/",  // 文件保存路径
-    "isZip"    =>            FALSE,         // 默认 FALSE 不压缩   生成文件时、单个文件下载时是否压缩
+    "isZip"    =>            false,         // 默认 FALSE 不压缩   生成文件时、单个文件下载时是否压缩
     "fileName" =>            '',            // 文件名称 -- 不带后缀 如果文件夹存在同名文件将覆盖
     'deFileNameType'=>     'Y-m-d-His',     // 默认文件名 时间格式
     "fileExt"  =>            '',        // 文件后缀名
     'type' =>                'echo|local|down',  // 所有数据一次直接输出到页面、保存本地、下载
     'fileType' =>           'local',             // 用户设置文件输出方式,默认保存到本地
-    'typeDownOld'=>        FALSE,        // 如果下载文件是否保存本地一份，默认下载完成删除本地文件
+    'typeDownOld'=>        false,        // 如果下载文件是否保存本地一份，默认下载完成删除本地文件
     'tempFile' =>           './file/temp.php', // html 模板文件
     'dbms'      =>           'mysql',        //数据库类型
     'host'      =>           'localhost',   //数据库主机名
@@ -28,7 +28,7 @@ return array(
     'user'      =>           'root',         //数据库连接用户名
     'pass'      =>           'root',          //对应的密码
     'char'      =>           'utf8',         // 数据库字符集
-    'longConn' =>            FALSE,         // 是否是长连接
+    'longConn' =>            false,         // 是否是长连接
     'dateTimezone'=>        'PRC',          // 设置时间时区
     'webChar'=>              'UTF-8',       // 页面显示字符编码 一般浏览器默认为utf8,所有这里设置utf8
     'locationChar'=>        'GBK//TRANSLIT',                  // 本地字符编码
