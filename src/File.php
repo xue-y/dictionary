@@ -301,7 +301,7 @@ class File {
                 // 文件名单独处理
                 if($this->gbkFileName==true)
                 {
-                    $is_rename=$zip->renameName($this->zipFileRename($fv),$this->gbkoldFileName.$k. '.' .$this->config['fileExt']);
+                    $is_rename=$zip->renameName($this->zipFileRename($fv),$this->gbkoldFileName.$k.'.'.$this->config['fileExt']);
                     if(!$is_rename){
                         $this->log('文件名系统不支持，返回默认文件名'.$this->config['deFileNameType'].'格式');
                         $this->logError=true; // 记录一下log 日志中存在错误信息
@@ -320,7 +320,7 @@ class File {
             // 文件名单独处理
             if($this->gbkFileName==true)
             {
-                $is_rename = $zip->renameName($this->zipFileRename($filename), $this->gbkoldFileName . '.' . $this->config['fileExt']);
+                $is_rename = $zip->renameName($this->zipFileRename($filename), $this->gbkoldFileName.'.'.$this->config['fileExt']);
                 if (!$is_rename) {
                     $this->log('文件名系统不支持，返回默认文件名' . $this->config['deFileNameType'] . '格式');
                     $this->logError = true; // 记录一下log 日志中存在错误信息
