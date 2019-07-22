@@ -1,14 +1,19 @@
 <?php
-/** 错误函数处理
+/**
+ * 错误函数处理
+ * @static  ErrorCode
  */
 namespace Ddic;
 
-/** 错误信息，之间终止程序
- * @parem $code 错误码
- * @parem $errorinfo 错误信息
- * @return exit 直接输出错误信息并退出
- * */
 final class  Derror{
+
+    /**
+     * ErrorCode
+     * @todo 打印错误信息并终止程序
+     * @param int $code 错误码
+     * @param string $errorinfo 错误信息
+     * @return void  直接输出错误信息并退出
+     */
      static function ErrorCode($code,$errorinfo='')
     {
         switch($code)

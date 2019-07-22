@@ -20,8 +20,10 @@ class PdoSql {
     // 定义私有类属性
     private static $_instance = null;
 
-    /** 初始化配置
-     * @parem $config  array
+    /**
+     * __construct
+     * @todo 初始化配置
+     * @param $config  array
      * */
     private function __construct($config = array())
     {
@@ -30,7 +32,7 @@ class PdoSql {
         $this->str_dsn();
     }
 
-    //公有化获取实例方法
+    //TODO 公有化获取实例方法
     public static function getInstance($config = array()){
         if (self::$_instance === null)
         {
@@ -44,11 +46,7 @@ class PdoSql {
 
     }
 
-    /**
-     * 使用 $this->name 获取配置
-     * @param  string $name 配置名称
-     * @return multitype    配置值
-     */
+    //TODO 获取配置
     public function __get($name)
     {
         if(isset($this->config[$name]))
@@ -59,7 +57,7 @@ class PdoSql {
             exit("No $name variable exists,Unable to obtain");
         }
     }
-    // 设置属性
+    //TODO 设置属性
     public function __set($name,$value)
     {
         if(isset($this->config[$name]))
@@ -70,19 +68,20 @@ class PdoSql {
             exit("No $name variable exists,Unable to set up");
         }
     }
-    // 判断属性
+
+    //TODO 判断属性
     public function __isset($name)
     {
         return isset($this->config[$name]);
     }
 
-    // 拼接dsn 连接字符串
+    //TODO 拼接dsn 连接字符串
     private function str_dsn()
     {
         return $this->dsn="$this->dbms:host=$this->host;port=$this->port;dbname=$this->dbName;charset=$this->char";
     }
 
-    // pdo 连接
+    //TODO pdo 连接
     public  function conn()
     {
         if($this->config['longConn']==true)
@@ -106,10 +105,12 @@ class PdoSql {
         }
     }
 
-    /** 执行sql 语句，返回数组形式数据
-     * @parem $sql 要执行的sql 语句
-     * @parem $one 是否取一条数据，默认false 取多条
-     * @return arr
+    /**
+     * query
+     * @todo 执行sql 语句，返回数组形式数据
+     * @param $sql 要执行的sql 语句
+     * @param $one 是否取一条数据，默认false 取多条
+     * @return array
      * */
     public function query($sql,$one=false)
     {
@@ -127,8 +128,10 @@ class PdoSql {
         return $arr;
     }
 
-    /** 处理数据库信息 数据库名称----字符集
-     * @return str
+    /**
+     * dbCharset
+     * @todo 处理数据库信息 数据库名称----字符集
+     * @return string
      * */
     public function dbCharset()
     {
@@ -141,8 +144,10 @@ class PdoSql {
         return $charset;
     }
 
-    /**统计MySQL中数据库中有所有表信息
-     * @retrun arr
+    /**
+     * tableAll
+     * @todo 统计MySQL中数据库中有所有表信息
+     * @retrun array
      * */
     public function tableAll()
     {
@@ -156,7 +161,7 @@ class PdoSql {
 
 
     /** 取得字段信息
-     * @parem $tablename
+     * @param $tablename
      * @return str
      * */
     public function fieldCom($tablename)

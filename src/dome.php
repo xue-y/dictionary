@@ -15,7 +15,7 @@ require "../vendor/autoload.php";
 $Ddic=new Ddic();
 /*$Ddic->fileType='down';*/ // 所有数据一次直接输出到页面
 /*$Ddic->limit=1;*/
-/*$Ddic->isZip=true;*/
+$Ddic->isZip=true;
 
 /*$Ddic->fileExt='html';*/
 /*$Ddic->fileName='中文';*/

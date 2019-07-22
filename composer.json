@@ -7,13 +7,13 @@
     },
     "name": "xue-y/dictionary",
     "description": "PHP generates MySQL database dictionary",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "type": "library",
     "license": "Apache-2.0",
     "authors": [
         {
             "name": "xue-y",
-            "email": "1922527784@qq.com"
+            "email": "php.develop@qq.com"
         }
     ],
     "minimum-stability": "stable",

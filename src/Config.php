@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Think
+ * User: https://github.com/xue-y/
  * Date: 2018/10/9
  * Time: 18:33
  * 配置信息

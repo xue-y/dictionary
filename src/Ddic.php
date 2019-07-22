@@ -14,7 +14,7 @@ class Ddic
     private $config=array();
     private $pdo_conn;
 
-    //初始化配置 连接数据库
+    //TODO 初始化配置 连接数据库
     public function __construct($config = array())
     {
         set_time_limit(0); // 如果数据量过大可以设置一下脚本执行时间
@@ -22,7 +22,7 @@ class Ddic
         $this->config = array_merge(include "Config.php",$config,$this->config);
     }
 
-    // 设置获取 配置信息
+    //TODO 获取配置信息
     public function __get($name)
     {
         if(isset($this->config[$name]))
@@ -34,6 +34,7 @@ class Ddic
         }
     }
 
+    // TODO 设置配置信息
     public function __set($name,$value)
     {
         if(isset($this->config[$name]))
@@ -45,18 +46,19 @@ class Ddic
         }
     }
 
+    // TODO 判断变量是否存在
     public function __isset($name)
     {
         return isset($this->config[$name]);
     }
 
-    /* 文档tit */
+    //TODO 设置文档title
     public function docTit()
     {
         return $this->dbName."数据库字典";
     }
 
-    /* 文档 head */
+    // TODO 设置文档head
     public function docHead()
     {
         $charset=$this->pdo_conn->dbCharset();
@@ -70,7 +72,7 @@ class Ddic
         return $head;
     }
 
-    /* 文档body */
+    //TODO 设置文档 body 内容
     public function docBody()
     {
         $tit=$this->pdo_conn->tableAll();
@@ -98,7 +100,7 @@ class Ddic
         return $table_all;
     }
 
-    // 所有的数据
+    //TODO 数据字典组装数据
     public function docData()
     {
         $data['tit']=$this->docTit();
@@ -107,7 +109,7 @@ class Ddic
         return $data;
     }
 
-    /* 显示、生成文件、压缩、下载*/
+    // TODO 执行数据显示、生成文件、压缩、下载
     public function docFile()
     {
         $this->initConf();
@@ -118,7 +120,6 @@ class Ddic
         $data['fieldTitVal']=explode(',',$this->fieldTitVal); // 数据表字段信息
 
         $this->fileType();// 文件存储方式
-
 
         // 直接输出在当前页面 一次性输出所有数据，如果数据过多请选择创建数据文件
         if($this->config['fileType'] =='echo')
@@ -139,21 +140,7 @@ class Ddic
         }
     }
 
-    // 文件存储方式
-    private function fileType()
-    {
-        if(empty($this->config['fileType']) || !in_array($this->config['fileType'],explode("|",$this->config['type'])))
-        {
-            $this->config['fileType']=null;
-        }else
-        {
-            // 字符统一小写
-            $this->config['fileType']=strtolower($this->config['fileType']);
-        }
-
-    }
-
-    // 初始化配置
+    //TODO 初始化数据库配置
     private function initConf()
     {
         header("Content-Type:text/html;charset={$this->config['webChar']}"); // 页面文档字符集
@@ -164,6 +151,18 @@ class Ddic
         $this->pdo_conn->conn();
     }
 
+    //TODO 文件存储方式设置
+    private function fileType()
+    {
+        if(empty($this->config['fileType']) || !in_array($this->config['fileType'],explode("|",$this->config['type'])))
+        {
+            $this->config['fileType']=null;
+        }else
+        {
+            // 字符统一小写
+            $this->config['fileType']=strtolower($this->config['fileType']);
+        }
+    }
 }
 
 
