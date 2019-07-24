@@ -21,4 +21,5 @@ $Ddic->isZip=true;
 /*$Ddic->fileName='中文';*/
 $Ddic->dbName='test';
 /*$Ddic->typeDownOld=true;*/
-$Ddic->docFile();
+$file=$Ddic->docFile();
+print_r($file);

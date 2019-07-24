@@ -13,10 +13,11 @@ class File {
         'logFile'           =>      './log/error.txt',  // 错误警告文件日志 log 文件夹要有读写创建的权限
         'logTimeFormat'    =>      'Y:m:d H:i:s',
         'logTipsInfo'      =>      '执行时有警告错误请查看日志信息',
+        'logOut'           =>       true,   //  如果有错误是否输出日志提示，默认输出
         'excleBr'           =>      PHP_EOL,     //excle 文件换回符
         "defileExt"         =>     'csv',         // 文件后缀
     );
-    private  $logError=FALSE;       // log 错误提示信息
+    private  $logError=false;       // log 错误提示信息
     private  $tmpFileName;          // 创建文件后返回的文件名--输出到页面
     private  $gbkFileName=false;   // 高版本单独处理中文文件名
     private  $gbkoldFileName;      // 存放用户设置的原中文文件名称
@@ -96,18 +97,16 @@ class File {
     //TODO 输出文件执行后的结果,如果存在日志警告信息输出警告
     public function outFile()
     {
-        echo '生成文件路径：<br/>';
         // 文件名（gbk-->locationChar）与网页 (utf8--->webChar) 编码一致
         $this->tmpFileName=$this->fileNameCode($this->config['locationChar'],$this->config['webChar'],$this->tmpFileName);
 
-        // 输出
-        var_dump($this->tmpFileName);
-
         // 如果存在日志警告信息 输出
-        if($this->logError==true)
+        if(($this->logError==true) && ($this->config['logOut']==true))
         {
             echo $this->config["logTipsInfo"].$this->config['logFile'];
         }
+        // 返回文件路径
+        return $this->tmpFileName;
     }
 
     /**

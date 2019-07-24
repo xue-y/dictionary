@@ -125,7 +125,7 @@ class Ddic
         // 直接输出在当前页面 一次性输出所有数据，如果数据过多请选择创建数据文件
         if($this->config['fileType'] =='echo')
         {
-            echo $file_class->docHtml($data);
+            return $file_class->docHtml($data);
 
         }else if($this->config['fileType'] =='down')
         {
@@ -137,7 +137,7 @@ class Ddic
             // 生成文件保存到本地----- 如果用户没有配置参数
             $file_class->writeFile($data);
             //输出文件名与日志信息
-            $file_class->outFile();
+           return $file_class->outFile();
         }
     }
 
