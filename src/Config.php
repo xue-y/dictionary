@@ -17,9 +17,9 @@ return array(
     "fileName" =>            '',            // 文件名称 -- 不带后缀 如果文件夹存在同名文件将覆盖
     'deFileNameType'=>     'Y-m-d-His',     // 默认文件名 时间格式
     "fileExt"  =>            '',        // 文件后缀名
-    'type' =>                'echo|local|down',  // 所有数据一次直接输出到页面、保存本地、下载
+    'type' =>                'data|echo|local|down',  // 返回数组格式数据、数据HTML格式输出到页面、保存本地、下载
     'fileType' =>           'local',             // 用户设置文件输出方式,默认保存到本地
-    'typeDownOld'=>        false,        // 如果下载文件是否保存本地一份，默认下载完成删除本地文件
+    'typeDownOld'=>         false,        // 如果下载文件是否保存本地一份，默认下载完成删除本地文件
     'tempFile' =>           './file/temp.php', // html 模板文件
     'dbms'      =>           'mysql',        //数据库类型
     'host'      =>           'localhost',   //数据库主机名

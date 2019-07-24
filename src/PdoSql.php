@@ -146,7 +146,7 @@ class PdoSql {
 
     /**
      * tableAll
-     * @todo 统计MySQL中数据库中有所有表信息
+     * @todo 获取MySQL中数据库中有所有表信息
      * @retrun array
      * */
     public function tableAll()

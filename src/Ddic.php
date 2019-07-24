@@ -123,22 +123,24 @@ class Ddic
         $this->fileType();// 文件存储方式
 
         // 直接输出在当前页面 一次性输出所有数据，如果数据过多请选择创建数据文件
-        if($this->config['fileType'] =='echo')
-        {
-            return $file_class->docHtml($data);
-
-        }else if($this->config['fileType'] =='down')
-        {
-            //下载文件
-            $file_class->downFile($data);
-
-        }else
-        {
-            // 生成文件保存到本地----- 如果用户没有配置参数
-            $file_class->writeFile($data);
-            //输出文件名与日志信息
-           return $file_class->outFile();
+        switch ($this->config['fileType']){
+            case 'data':
+                return $this->docData(); // 直接返回数据，用于框架中渲染模板分页
+                break;
+            case 'echo':
+                return $file_class->docHtml($data);
+                break;
+            case 'down':
+                $file_class->downFile($data);   //下载文件
+                break;
+            default:
+                // 生成文件保存到本地----- 如果用户没有配置参数
+                $file_class->writeFile($data);
+                //输出文件名与日志信息
+                return $file_class->outFile();
+                break;
         }
+
     }
 
     //TODO 初始化数据库配置
