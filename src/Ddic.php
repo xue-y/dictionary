@@ -88,13 +88,15 @@ class Ddic
             $table_index=$k+1;
             $head["index"]='表: '.$table_index;  // 表序号
             $head["Name"]=$v["Name"];
-            $head["Collation"]=$v["Collation"];
-            $head["Engine"]=$v["Engine"];
             $head["Comment"]=$v["Comment"];
-            array_push($t_h,$head);  // 表头数据---取出多余数据
+            $head["Collation"]='字符集：'.$v["Collation"];
+            $head["Engine"]='表引擎：'.$v["Engine"];
 
             $table_field[$v["Name"]]=$this->pdo_conn->fieldCom($v["Name"]);
-            array_push($t_f,$table_field);
+            $head["Field"]='字段个数：'.count($table_field[$v["Name"]]);
+            $head["Rows"]='数据条数：'.$v["Rows"];
+            array_push($t_h,$head);  // 表头数据
+            array_push($t_f,$table_field); // 表字段数据
         }
         $table_all['tit']=$t_h;
         $table_all["body"]=$t_f;
@@ -104,7 +106,9 @@ class Ddic
     //TODO 数据字典组装数据
     public function docData()
     {
-        $data['tit']=$this->docTit();
+        if(($this->config['csvIsTit']==true) || ($this->config['fileExt']!='csv')){
+            $data['tit']=$this->docTit();
+        }
         $data['head']=$this->docHead();
         $data['body']=$this->docBody();
         return $data;
@@ -167,13 +171,3 @@ class Ddic
         }
     }
 }
-
-
-
-
-
-
-
-
-
-

@@ -158,8 +158,6 @@ class PdoSql {
         return $this->query($sql);
     }
 
-
-
     /** 取得字段信息
      * @param $tablename
      * @return str

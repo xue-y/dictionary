@@ -1,0 +1,77 @@
+﻿test,"DEFAULT CHARACTER SET utf8",数据表个数：,9
+
+"表: 1",w_admin_power,管理员权限,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：7,数据条数：25
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(3) unsigned",NO,PRI,,auto_increment,
+mc_name,varchar(20),NO,UNI,,,模块/控制器名称
+biaoshi_name,varchar(20),NO,,,,模块/控制器标识名
+pid,"tinyint(3) unsigned",NO,,,,权限级别
+icon,varchar(20),NO,,,,图标
+sort,"tinyint(3) unsigned",NO,,,,排序
+is_sys,varchar(1),NO,,0,,
+
+"表: 2",w_admin_role,管理员角色,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：4,数据条数：2
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(3) unsigned",NO,PRI,,auto_increment,
+r_n,varchar(20),NO,,,,角色名称
+r_d,varchar(20),NO,,,,角色描述
+powers,varchar(255),NO,,,,角色权限
+
+"表: 3",w_admin_user,管理员用户,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：5,数据条数：5
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(3) unsigned",NO,PRI,,auto_increment,
+name,varchar(50),NO,,,,用户名
+pass,varchar(40),NO,,,,系统用户密码
+r_id,"tinyint(3) unsigned",NO,,,,角色
+email,varchar(40),NO,,,,邮箱
+
+"表: 4",w_ai_nav,AI导航,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：7,数据条数：5
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(3) unsigned",NO,PRI,,auto_increment,
+nav_name,varchar(20),NO,,,,导航名称
+nav_biaoshi,varchar(20),NO,,,,导航标识名
+keyword,varchar(20),NO,,,,关键字
+description,varchar(50),NO,,,,描述
+sort,"tinyint(3) unsigned",NO,,1,,排序
+is_show,varchar(1),NO,,1,,是否显示;1显示，0不显示
+
+"表: 5",w_ai_page,AI文档,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：7,数据条数：5
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(4) unsigned",NO,PRI,,auto_increment,
+tit,varchar(20),NO,,,,标题
+keyword,varchar(20),NO,,,,关键字
+description,varchar(50),NO,,,,描述
+t,date,NO,,,,时间
+con,text,NO,,,,时间
+sort,"tinyint(3) unsigned",NO,,,,排序
+
+"表: 6",w_log_login,登陆记录,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：5,数据条数：58
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(3) unsigned",NO,PRI,,auto_increment,
+uid,"tinyint(3) unsigned",NO,,,,登录用户ID
+t,datetime,NO,,,,登录时间
+shebie,varchar(100),NO,,,,登录设备
+ip,varchar(20),NO,,,,登录IP
+
+"表: 7",w_log_operate,操作记录,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：5,数据条数：97
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(3) unsigned",NO,PRI,,auto_increment,
+uid,"tinyint(3) unsigned",NO,,,,管理员ID
+t,datetime,NO,,,,操作时间
+behavior,"tinyint(4) unsigned",NO,,,,操作行为
+details,varchar(255),NO,,,,操作详情
+
+"表: 8",w_sys_sset,系统设置,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：6,数据条数：18
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(3) unsigned",NO,PRI,,auto_increment,
+systid,"tinyint(3) unsigned",NO,,,,设置项类型
+syskey,varchar(20),NO,,,,设置项名称
+sysval,varchar(255),NO,,,,设置项值;多个值中间用英文逗号分隔
+notes,varchar(50),NO,,,,设置项说明
+is_sys,varchar(1),NO,,1,,"是否系统内置;系统内置不可删除；1不删除,0可以删除"
+
+"表: 9",w_sys_stype,设置分类,字符集：utf8_general_ci,表引擎：MyISAM,字段个数：2,数据条数：5
+字段,类型,是否为NULL,Key,默认,额外,注释
+id,"tinyint(4) unsigned",NO,PRI,,auto_increment,
+systype,varchar(30),NO,,,,类型名称
+

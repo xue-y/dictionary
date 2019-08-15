@@ -496,8 +496,11 @@ class File {
         // utf8 编码数据写入 csv 文件，设置 BOM 头，否则乱码
         // 数据编码 要与写入 csv 文件的编码一致，也可以将数据转 gbk 写入 csv, Excel打开也不乱码，只是这样比较麻烦
         fwrite($file_resource,chr(0xEF).chr(0xBB).chr(0xBF));
-        $tit=$data['tit'].$br;
-        fwrite($file_resource,$tit);
+        // 如果存在标题
+        if(!empty($data['tit'])){
+            $tit=$data['tit'].$br;
+            fwrite($file_resource,$tit);
+        }
         fputcsv($file_resource,$data['head']);
         fwrite($file_resource,$br);
 

@@ -32,9 +32,9 @@
             padding:5px;
         }
         table th:nth-of-type(1){ width:10%;}
-        table th:nth-of-type(2){ width:30%;}
-        table th:nth-of-type(3){ width:15%;}
-        table th:nth-of-type(4){ width:15%;}
+        table th:nth-of-type(2){ width:20%;}
+        table th:nth-of-type(3){ width:20%;}
+        table th:nth-of-type(4){ width:20%;}
         td {
             padding:3px 5px 3px 10px;
             vertical-align:top;
@@ -77,25 +77,10 @@
         /*模块标题*/
         textarea{border:1px solid #ccc; width:938px; padding:10px; height:100px;}
         .table_tit th{border:none !important;background:#d6eef0; font-size: 15px;}
-
         td{text-align: center;}
         h1{ height:40px; line-height:40px; background:#4f81bd; color:#FFF; padding-left:20px; font-size:16px; margin-top:60px; }
         ul{ border:1px solid #FFCC00; padding:5px 10px;}
         ul strong{ color:#FF0000}
-        #tbox{width:58px; float:right; position:fixed; right:50px; bottom:15px;
-            _position:absolute;
-            _bottom:auto;
-            _top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
-            _margin-bottom:15px;
-        }/*解决IE6下不兼容 position:fixed 的问题*/
-        #gotop{ width:58px; height:56px; display:block;}
-        #gotop{ background-position:0 -118px;}
-        #gotop:hover{ background-position:0 -59px;}
-        .a{ display:block; height:30px; line-height:30px; background:#2d96e9; text-decoration: none; text-align: center; color:#FFFFFF; border-bottom:2px solid #fff}
-        .a:hover{ background:#4f81bd}
-        .b{ background:#4f81bd  }
-        .blank{height:10px; line-height:10px; clear:both; visibility:hidden;}
-        .share { float:left}
         .share a{ text-decoration:none; border:none}
         .share  dl{ float:left; line-height:22px; padding-right:10px;}
         .share div{ float:left; padding-top:11px;}
@@ -104,23 +89,24 @@
 </head>
 <body>
     <div class="menu">
-    <h3><?php echo $data['head']['dbname'].' 数据库; &nbsp;  字符：'. $data['head']["charset"]." ; &nbsp;  ".$data['head']["table_info"].$data['head']["table_c"]?></h3>
+    <h3><?php echo $data['head']['dbname'].' 数据库 &nbsp;  &nbsp;  字符：'. $data['head']["charset"]."  &nbsp;  &nbsp;  ".$data['head']["table_info"].$data['head']["table_c"]?></h3>
     </div>
     <div class="content">
         <?php foreach($data['body']['tit'] as $tk=>$tv) { ?> <!--表信息-->
           <table width="100%" border="1" cellpadding="0" cellspacing="0">
             <tr class="table_tit">
                 <th><?php echo  $tv['index']; ?></th>
-                <th><?php echo  $tv["Name"]; ?></th>
+                <th><?php echo  $tv["Name"].'( '.$tv["Comment"].' )'; ?></th>
                 <th><?php echo  $tv["Collation"]; ?></th>
                 <th><?php echo  $tv["Engine"]; ?></th>
-                <th><?php echo  $tv["Comment"]; ?></th>
+                <th><?php echo  $tv["Field"]; ?></th>
+                <th><?php echo  $tv["Rows"]; ?></th>
             </tr>
           </table>
           <table width="100%" border="1" cellpadding="0" cellspacing="0" class="table_con">
             <tr style="background:#F1F1F1;">
                 <?php foreach($data['fieldTitKey'] as $fk=>$fv) { ?> <!--表字段说明-->
-                <th><?php echo  $fv; ?></th>
+                <th style="white-space:nowrap;min-width:100px; max-width: 200px;width:auto"><?php echo  $fv; ?></th>
                 <?php }; ?>
             </tr>
 
